@@ -37,6 +37,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
       //DO THIS
       //obtain the required number of trapezoid evaluations depending on the number of levels requested
       //put all of the level 0 results on the q1
+
 		#if DEBUG
 		cout << "About to calculate res\n";
 		#endif
@@ -48,6 +49,14 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		q1->enqueue(db); 
         //double the number of intervals
 		n = 2*n;
+
+		
+		double res = accurateRomberg(f, a, b, n);
+		Double* d = new Double(res);
+		q1->enqueue(d); 
+
+      n = 2*n;  //double the number of intervals
+
       counter++;
    }
 
@@ -67,10 +76,19 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
 		
+
 		db = q1->dequeue();
 		double more = db->getValue();
 		db = q1->peek();
 		double less = db->getValue();
+
+		Double* more_Double = q1->dequeue();
+		double more = more_Double->getValue();
+		delete more_Double;
+		Double* less_Double = q1->peek();
+		double less = less_Double->getValue();
+		delete less_Double;
+
 		factor = pow(4, power);
 
 		double res = ((factor * more) - less) / (factor - 1);
