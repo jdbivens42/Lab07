@@ -87,14 +87,21 @@ void QueueLinked<T>::enqueue(T* item)
 
     //DO THIS (enqueueing the first item is a special case)
 
-
-
-
-
-
-
-
-
+	//here is the exception YAY
+	if(isEmpty())
+	{
+		back = node;
+		node->setNext(node);
+	}
+	else
+	{	
+	//NextNode<T>* curr_back = back;
+	NextNode<T>* first = back->getNext();
+	
+	back->setNext(node);
+	node->setNext(first);
+	back = node;
+	}
     sze++;
 }
 
@@ -105,18 +112,26 @@ T* QueueLinked<T>::dequeue()
 
     //DO THIS (dequeueing the last item is a special case)
     //also, check that there are items before dequeueing
+	if(isEmpty())
+	{
+		return item;
+	}
+	else if(sz == 1)
+	{
+		item = back->getItem();
+		delete back;
+		back = 0;
+	}
+	else
+	{
+	//not special case
+	NextNode<T>* front = back->getNext();
+	item = front->getItem();
+	back->setNext(front->getNext());
+	delete front;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
+	sz--;
 
     return item;
 }
