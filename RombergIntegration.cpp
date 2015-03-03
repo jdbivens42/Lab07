@@ -58,7 +58,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		
 		Double* res_D = new Double(res);
 		q2->enqueue(res_D);
-
+		power++;
 		if(q1->size() == 1)
 		{
 			Double* next = q1->dequeue();
