@@ -116,7 +116,7 @@ T* QueueLinked<T>::dequeue()
 	{
 		return item;
 	}
-	else if(sz == 1)
+	else if(sze == 1)
 	{
 		item = back->getItem();
 		delete back;
@@ -131,7 +131,7 @@ T* QueueLinked<T>::dequeue()
 	delete front;
 	}
 
-	sz--;
+	sze--;
 
     return item;
 }
