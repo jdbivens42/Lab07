@@ -64,18 +64,19 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
    int iterations =  ( level * (level+1))/2;            //can be precomputed
    while (iterations > 0)
    {
-	   
+	   //comment for recompile
+	   //plz recompile
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
-		#if DEBUGA
-		cout << "Calculating romberg\n";
+		#if DEBUG
+		cout << "Calculating romberg: \n";
 		#endif
 		db = q1->dequeue();
 		double less = db->getValue();
 		db = q1->peek();
 		double more = db->getValue();
 		factor = pow(4, power);
-		
+		delete db;
 		#if DEBUG
 		cout << "(( " << factor << " * " << more << ") - " << less << ") / ( " << factor << " - 1 )\n";
 		#endif
@@ -92,17 +93,22 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		
 		db = new Double(res);
 		q2->enqueue(db);
-		power++;
+		
 		if(q1->size() == 1)
 		{
 			db = q1->dequeue();
 			delete db;
 			
+			//comment for recompile
+			
+			power++;
 			QueueLinked<Double>* temp = q1;
 			q1 = q2;
 			q2 = temp;
 			
 		}
+		
+		
 	
  iterations--;
    }

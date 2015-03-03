@@ -25,4 +25,4 @@ RecursiveIntegration.o: RecursiveIntegration.cpp RecursiveIntegration.h
 						$(COMPILE) -D DEBUG=0 RecursiveIntegration.cpp
 						
 RombergIntegration.o:	RecursiveIntegration.o RombergIntegration.cpp QueueLinked.h 
-						$(COMPILE) -D DEBUG=1 RombergIntegration.cpp
+						$(COMPILE) -D DEBUG=0 RombergIntegration.cpp
