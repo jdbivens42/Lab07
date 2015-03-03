@@ -26,8 +26,6 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 	#endif
 
    int counter = 0;
-   double res, more, less; //Removed multiple declarations of local variables -JDB
-   
    int n = 1;  //current number of intervals
    while ( counter < level + 1)
    {
@@ -35,15 +33,14 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 	   cout << "Counter: " << counter << endl;
 	   cout << "n: " << n << endl;
 	   #endif
-	   //random comment
+	   //random 
       //DO THIS
       //obtain the required number of trapezoid evaluations depending on the number of levels requested
       //put all of the level 0 results on the q1
-
 		#if DEBUG
 		cout << "About to calculate res\n";
 		#endif
-		res = RecursiveIntegration::romberg(f, a, b, n);
+		double res = RecursiveIntegration::romberg(f, a, b, n);
 		#if DEBUG
 		cout << "Res: " << res << endl;
 		#endif
@@ -51,14 +48,6 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		q1->enqueue(db); 
         //double the number of intervals
 		n = 2*n;
-
-		
-		res = accurateRomberg(f, a, b, n);
-		Double* d = new Double(res);
-		q1->enqueue(d); 
-
-      n = 2*n;  //double the number of intervals
-
       counter++;
    }
 
@@ -77,23 +66,16 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
    {
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
-		
-
+		#if DEBUG
+		cout << "Calculating romberg\n";
+		#endif
 		db = q1->dequeue();
-		more = db->getValue();
+		double more = db->getValue();
 		db = q1->peek();
 		double less = db->getValue();
-
-		Double* more_Double = q1->dequeue();
-		more = more_Double->getValue();
-		delete more_Double;
-		Double* less_Double = q1->peek();
-		less = less_Double->getValue();
-		delete less_Double;
-
 		factor = pow(4, power);
 
-		res = ((factor * more) - less) / (factor - 1);
+		double res = ((factor * more) - less) / (factor - 1);
 		delete db;
 		
 		db = new Double(res);
