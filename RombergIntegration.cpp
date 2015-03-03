@@ -40,31 +40,37 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
    //the total number of executions of the loop is ??
 
    //DO THIS
-   int iterations =  (n* (n+1))/2;            //can be precomputed
+   int iterations =  ( level * (level+1))/2;            //can be precomputed
    while (iterations > 0)
    {
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
 		
+		Double* more_Double = q1->dequeue();
+		double more = more_Double->getValue
+		delete more_Double;
+		Double* less_Double = q1->peek();
+		double less = less_Double->getValue()
+		delete less_Double;
+		factor = pow(4, power);
 
+		double res = ((factor * more) - less) / (factor - 1);
+		
+		Double* res_D = new Double(res);
+		q2->enqueue(res_D);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      iterations--;
+		if(q1->size() == 1)
+		{
+			Double* next = q1->dequeue();
+			delete next;
+			
+			QueueLinked<Double>* temp = q1;
+			q1 = q2;
+			q2 = temp;
+			
+		}
+	
+ iterations--;
    }
 
    //obtain the final answer
