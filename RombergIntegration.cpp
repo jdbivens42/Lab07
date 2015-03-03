@@ -26,6 +26,8 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 	#endif
 
    int counter = 0;
+   double res, more, less; //Removed multiple declarations of local variables -JDB
+   
    int n = 1;  //current number of intervals
    while ( counter < level + 1)
    {
@@ -41,7 +43,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		#if DEBUG
 		cout << "About to calculate res\n";
 		#endif
-		double res = RecursiveIntegration::romberg(f, a, b, n);
+		res = RecursiveIntegration::romberg(f, a, b, n);
 		#if DEBUG
 		cout << "Res: " << res << endl;
 		#endif
@@ -51,7 +53,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		n = 2*n;
 
 		
-		double res = accurateRomberg(f, a, b, n);
+		res = accurateRomberg(f, a, b, n);
 		Double* d = new Double(res);
 		q1->enqueue(d); 
 
@@ -78,20 +80,20 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		
 
 		db = q1->dequeue();
-		double more = db->getValue();
+		more = db->getValue();
 		db = q1->peek();
 		double less = db->getValue();
 
 		Double* more_Double = q1->dequeue();
-		double more = more_Double->getValue();
+		more = more_Double->getValue();
 		delete more_Double;
 		Double* less_Double = q1->peek();
-		double less = less_Double->getValue();
+		less = less_Double->getValue();
 		delete less_Double;
 
 		factor = pow(4, power);
 
-		double res = ((factor * more) - less) / (factor - 1);
+		res = ((factor * more) - less) / (factor - 1);
 		delete db;
 		
 		db = new Double(res);
