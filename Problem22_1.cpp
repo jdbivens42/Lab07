@@ -15,6 +15,7 @@ Problem22_1::~Problem22_1()
 //the function evaluation depends on the current values for the parameters
 double Problem22_1::evaluate(double* xy)
 {
+	//random comment
    double x = xy[0];
    double result = 2*x;
    result += 3/x;
@@ -41,13 +42,21 @@ void Problem22_1::setUpperLimit(double b)
 int main()
 {
    Problem22_1* p = new Problem22_1();  //mean = 10.5, variance = 5.7
-
+	#if DEBUG
+	cout << "Created the problem\n";
+	#endif
    //lower limits
    p->setLowerLimit(1.0);
    p->setUpperLimit(2.0);
-
+   #if DEBUG
+	cout << "Limits set\n";
+	#endif
    double result;
 
+   #if DEBUG
+   cout << "Begin integration\n";
+   #endif
+   
    result = p->integrate(0);
    cout << "The area under the curve using accurate Romberg level 0: " << result << endl;
 
@@ -60,6 +69,9 @@ int main()
    result = p->integrate(3);
    cout << "The area under the curve using accurate Romberg level 3: " << result << endl;
 
+   #if DEBUG
+	cout << "End integration\n";
+	#endif
    delete p;
    return 0;
 }

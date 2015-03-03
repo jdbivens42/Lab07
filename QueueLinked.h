@@ -2,6 +2,9 @@
 #define QUEUELINKED_H
 
 #include "NextNode.h"
+#include <iostream>
+using namespace std;
+
 
 template < class T >
 class QueueLinked
@@ -83,24 +86,31 @@ T* QueueLinked<T>::peek()
 template < class T >
 void QueueLinked<T>::enqueue(T* item)
 {
-    NextNode<T>* node = new NextNode<T>(item);
 
+    NextNode<T>* node = new NextNode<T>(item);
+	
+	
     //DO THIS (enqueueing the first item is a special case)
 
 	//here is the exception YAY
 	if(isEmpty())
 	{
+
 		back = node;
 		node->setNext(node);
+		
+
 	}
 	else
 	{	
-	//NextNode<T>* curr_back = back;
-	NextNode<T>* first = back->getNext();
 	
-	back->setNext(node);
-	node->setNext(first);
-	back = node;
+		//NextNode<T>* curr_back = back;
+		NextNode<T>* first = back->getNext();
+	
+		back->setNext(node);
+		node->setNext(first);
+		back = node;
+		
 	}
     sze++;
 }
@@ -114,24 +124,34 @@ T* QueueLinked<T>::dequeue()
     //also, check that there are items before dequeueing
 	if(isEmpty())
 	{
+		
+	
+		
 		return item;
 	}
-	else if(sz == 1)
+	else if(sze == 1)
 	{
+		
+		
+		
+		
 		item = back->getItem();
 		delete back;
 		back = 0;
+	
 	}
 	else
 	{
 	//not special case
+		
 	NextNode<T>* front = back->getNext();
 	item = front->getItem();
 	back->setNext(front->getNext());
 	delete front;
+		
 	}
 
-	sz--;
+	sze--;
 
     return item;
 }
