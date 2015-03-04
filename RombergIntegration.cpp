@@ -33,7 +33,6 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 	   cout << "Counter: " << counter << endl;
 	   cout << "n: " << n << endl;
 	   #endif
-	   //random 
       //DO THIS
       //obtain the required number of trapezoid evaluations depending on the number of levels requested
       //put all of the level 0 results on the q1
@@ -60,12 +59,9 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
    //the total number of executions of the loop is ??
 
    //DO THIS
-   //did that
    int iterations =  ( level * (level+1))/2;            //can be precomputed
    while (iterations > 0)
    {
-	   //comment for recompile
-	   //plz recompile
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
 		#if DEBUG
@@ -73,10 +69,12 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		#endif
 		db = q1->dequeue();
 		double less = db->getValue();
+		delete db;
+		
 		db = q1->peek();
 		double more = db->getValue();
 		factor = pow(4, power);
-		delete db;
+		
 		#if DEBUG
 		cout << "(( " << factor << " * " << more << ") - " << less << ") / ( " << factor << " - 1 )\n";
 		#endif
@@ -85,7 +83,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		cout << "Res: " << res << endl;
 		#endif
 		
-		//delete db;
+		
 		
 		#if DEBUG
 		cout << "Adding to appropriate queues\n";
@@ -98,8 +96,6 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 		{
 			db = q1->dequeue();
 			delete db;
-			
-			//comment for recompile
 			
 			power++;
 			QueueLinked<Double>* temp = q1;
